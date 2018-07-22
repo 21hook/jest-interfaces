@@ -1,8 +1,7 @@
-// users.js
-import axios from 'axios';
-
-export default class Users {
-    static all() {
-        return axios.get('https://jsonplaceholder.typicode.com/posts/1/id').then(resp => resp.data);
+module.exports = {
+    iterate: (items, callback) => {
+        items.forEach((item) => {
+            callback(item)
+        })
     }
-}
+};

@@ -1,4 +1,8 @@
+var axios = require('axios');
+
 module.exports = {
-    one: {},
-    two: []
+    fetchUsers:  () =>
+        axios.get('https://jsonplaceholder.typicode.com/users')
+            .then(res => res.data)
+            .catch(err => err.data.message),
 };

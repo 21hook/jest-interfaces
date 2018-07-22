@@ -1,31 +1,22 @@
-var data = require('./main');
-
-// setup before running global test cases; global beforeEach -> scoped beforeEach -> scoped afterEach -> global afterEach
-beforeEach(() => console.log('beforeEach') );
-// teardown after running each test case
-afterEach(() => console.log('afterEach'));
+var CGI = require('./main');
 
 /* define a test case */
-// test Compounds/Object
-test('data Object', () => {
-    expect(data.one).toEqual({})
-});
+//test Compounds/Object/Callback
+test('', () => {
 
-test('data Object', () => {
-    expect(data.two).toEqual([])
-});
+})
 
-/* define a test suite(a set of test cases) */
-describe('', () => {
-    // setup before running scoped test cases; global beforeEach -> scoped beforeEach -> scoped afterEach -> global afterEach
-    beforeEach(() => console.log('inner beforeEach'));
-    afterEach(() => console.log('inner afterEach'));
-
-    test('data Object', () => {
-        expect(data.one).toEqual({})
+// test Compounds/Object/Promise
+test('fetchUser Function', () => {
+    CGI.fetchUsers().then(data => {
+        expect(data).not.toBeFalsy()
     })
+})
 
-    test('data Obeject', () => {
-        expect(data.two).toEqual([])
-    })
-});
+// test Compounds/Object/Async & Await
+test('fetchUser Function', async () => {
+    const data = await CGI.fetchUsers(); // wait an expression/promise
+
+    expect(data).not.toBeFalsy();
+})
+
