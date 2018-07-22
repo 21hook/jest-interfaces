@@ -1,8 +1,7 @@
 var data = require('./main');
 
-/* define a test case */
-
-/* test Primitives/Boolean */
+/* define test cases */
+/* test compounds */
 test('', () => {
     const bool = null;
 
@@ -11,14 +10,8 @@ test('', () => {
     expect(bool).toBeFalsy(); // true
 });
 
-/* test Primitives/String */
-test('literal String', () => {
-    expect('team').toMatch(/team/);
-});
-
-/* test Compounds/Object */
 test('data Object', () => {
-    expect(data).toEqual({
+    expect(data).toEqual({ // toEqual(); the same values(object equality) for compounds
         one: 1
     })
 });

@@ -1,7 +1,7 @@
 var data = require('./main');
 const mockCallback = jest.fn();
 
-data.iterate([1, 2], mockCallback); // mock process/function: output & input
+data.iterate([1, 2], mockCallback); // mimic the data IO of a real function(mock function)
 
 /* define a test suite(a set of test cases) */
 // test Compounds/Function
