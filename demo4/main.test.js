@@ -1,22 +1,36 @@
 var CGI = require('./main');
 
 /* define a test case */
-//test Compounds/Object/Callback
-test('', () => {
+//test a callback
+test('', done => { // pass a expectation callback, the client
+    function handleRes(data) {
+        expect(data).toBe('peanut butter')
 
+        done() // wait until done callback is called, before the expectation callback is finished
+    }
+
+    fetchData(handleRes) // pass a res callback, the client
 })
 
-// test Compounds/Object/Promise
+// test a promise
 test('fetchUser Function', () => {
-    CGI.fetchUsers().then(data => {
-        expect(data).not.toBeFalsy()
-    })
+    CGI.fetchUsers() // return a promise
+        .then(res => { // test the resolved value
+            expect(res).not.toBeFalsy()
+        })
+        .catch(err => { // test the rejected value
+            expect(err).toBe('error message')
+        })
 })
 
-// test Compounds/Object/Async & Await
+// test async & await(an async fn with sync waiting)
 test('fetchUser Function', async () => {
-    const data = await CGI.fetchUsers(); // wait an expression/promise
+    try {
+        const res = await CGI.fetchUsers(); // wait an expression/promise
 
-    expect(data).not.toBeFalsy();
+        expect(res).toBeTruthy()
+    } catch (e) {
+        expect(e).toBe('error message')
+    }
 })
 
