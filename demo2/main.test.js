@@ -5,6 +5,11 @@ var data = require('./main');
 test('', () => {
     const bool = null;
 
+    /**
+     *     undefined values       defined values
+     *  (                       ((primitives | compounds)    )     ))
+     *                                      true              false
+     */
     expect(bool).toBeDefined(); // defined variable
     expect(bool).toBeNull(); // null
     expect(bool).toBeFalsy(); // true

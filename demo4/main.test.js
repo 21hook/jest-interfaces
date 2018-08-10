@@ -1,36 +1,44 @@
-var CGI = require('./main');
+var API = require('./main');
+var fs = require('fs')
 
-/* define a test case */
-//test a callback
-test('', done => { // pass a expectation callback, the client
-    function handleRes(data) {
-        expect(data).toBe('peanut butter')
+describe('async code', () => {
+    //test async function
+    test('fetch data asynchronously', done => { // expectation callback
 
-        done() // wait until done callback is called, before the expectation callback is finished
-    }
+        //     done() // wait until done callback is called, before the expectation callback is finished
 
-    fetchData(handleRes) // pass a res callback, the client
-})
+        fs.readFile('data.json', (err, data) => { // read callback
+            // console.log(data.toString())
+            expect(data).toBeDefined()
 
-// test a promise
-test('fetchUser Function', () => {
-    CGI.fetchUsers() // return a promise
-        .then(res => { // test the resolved value
-            expect(res).not.toBeFalsy()
+            done() // the expectation callback waits until the done callback is completed
         })
-        .catch(err => { // test the rejected value
-            expect(err).toBe('error message')
-        })
+    })
+
+    // test async promise
+    test('fetch users asynchronously', () => {
+        expect.assertions(1) // the number of assertions is 1
+
+        return API.fetchUsers() // return a promise
+            .then(res => { // test the resolved value
+                expect(res).not.toBeFalsy()
+            })
+            .catch(err => { // test the rejected value
+                expect(err).toBe('error message')
+            })
+    })
+
+
+    // test async & await function
+    test('fetchUser Function', async () => {
+        try {
+            const res = await API.fetchUsers(); // wait an expression/promise
+
+            expect(res).toBeTruthy()
+        } catch (e) {
+            expect(e).toBe('error message')
+        }
+    })
 })
 
-// test async & await(an async fn with sync waiting)
-test('fetchUser Function', async () => {
-    try {
-        const res = await CGI.fetchUsers(); // wait an expression/promise
-
-        expect(res).toBeTruthy()
-    } catch (e) {
-        expect(e).toBe('error message')
-    }
-})
 
